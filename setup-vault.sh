@@ -67,7 +67,7 @@ keytool -importkeystore -deststorepass changeit -destkeypass changeit -destkeyst
 keytool -import -alias vault-ca -file vault/certs/ca.pem -keystore src/main/resources/vault-truststore.jks -storepass changeit -noprompt
 
 echo "🐳 Starting Vault with Docker Compose..."
-docker-compose up -d vault
+docker compose up -d vault
 
 echo "⏳ Waiting for Vault to be ready..."
 sleep 10
@@ -75,13 +75,13 @@ sleep 10
 echo "🔧 Configuring certificate authentication..."
 
 # Wait for vault to be healthy
-until docker-compose exec vault vault status > /dev/null 2>&1; do
+until docker compose exec vault vault status > /dev/null 2>&1; do
   echo "Waiting for Vault..."
   sleep 2
 done
 
 # Configure certificate authentication
-docker-compose exec vault sh -c '
+docker compose exec vault sh -c '
 export VAULT_TOKEN=myroot
 export VAULT_ADDR=http://localhost:8200
 
@@ -108,7 +108,7 @@ echo "Certificate authentication configured!"
 '
 
 # Run initialization
-docker-compose up vault-init
+docker compose up vault-init
 
 echo "✅ Vault setup completed!"
 echo ""
