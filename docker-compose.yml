@@ -14,7 +14,7 @@ services:
       - vault-data:/vault/data
       - ./vault/config:/vault/config
       - ./vault/certs:/vault/certs
-    command: vault server -dev -dev-root-token-id=myroot -dev-listen-address=0.0.0.0:8200
+    command: vault server -dev -dev-root-token-id=myroot -dev-listen-address=0.0.0.0:8200 -dev-tls
     healthcheck:
       test: ["CMD", "vault", "status"]
       interval: 30s
