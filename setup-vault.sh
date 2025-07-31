@@ -83,7 +83,7 @@ done
 # Configure certificate authentication
 docker compose exec vault sh -c '
 export VAULT_TOKEN=myroot
-export VAULT_ADDR=http://localhost:8200
+export VAULT_ADDR=http://0.0.0.0:8200
 
 echo "Enabling certificate authentication..."
 vault auth enable cert
