@@ -1,0 +1,61 @@
+
+server:
+  port: 8080
+  servlet:
+    context-path: /spring-vault-demo
+
+spring:
+  application:
+    name: spring-vault-demo
+
+  cloud:
+    vault:
+      # Vault server configuration
+      uri: https://vault.example.com:8200
+      connection-timeout: 5000
+      read-timeout: 15000
+
+      # Certificate-based authentication
+      authentication: CERT
+      ssl:
+        key-store: classpath:vault-client.jks
+        key-store-password: changeit
+        key-store-type: JKS
+        trust-store: classpath:vault-truststore.jks
+        trust-store-password: changeit
+        trust-store-type: JKS
+
+      # Application name for Vault path resolution
+      application-name: ${spring.application.name}
+
+      # KV configuration
+      kv:
+        enabled: true
+        backend: secret
+        default-context: ${spring.application.name}
+        application-name: ${spring.application.name}
+
+      # Generic secret backend configuration
+      generic:
+        enabled: false
+
+# Management endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,vault
+  endpoint:
+    health:
+      show-details: when-authorized
+    vault:
+      enabled: true
+
+# Logging configuration
+logging:
+  level:
+    org.springframework.vault: DEBUG
+    org.springframework.cloud.vault: DEBUG
+    com.example: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"

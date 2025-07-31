@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: spring-vault-demo
+
+  cloud:
+    vault:
+      enabled: true
+      fail-fast: true
+
+      # Vault server configuration
+      uri: https://vault.example.com:8200
+      connection-timeout: 5000
+      read-timeout: 15000
+
+      # Certificate-based authentication
+      authentication: CERT
+      ssl:
+        key-store: classpath:vault-client.jks
+        key-store-password: changeit
+        key-store-type: JKS
+        trust-store: classpath:vault-truststore.jks
+        trust-store-password: changeit
+        trust-store-type: JKS
+
+      # KV version 2 configuration
+      kv:
+        enabled: true
+        backend: secret
+        default-context: ${spring.application.name}
+        profiles: default
+
+      # Database secret backend (if using dynamic secrets)
+      database:
+        enabled: false
+        role: readonly
+        backend: database
