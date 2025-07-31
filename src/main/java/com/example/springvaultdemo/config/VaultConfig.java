@@ -1,8 +1,8 @@
 package com.example.springvaultdemo.config;
 
+import org.springframework.cloud.vault.config.SecretBackendConfigurer;
 import org.springframework.cloud.vault.config.VaultConfigurer;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.vault.core.env.VaultPropertySource;
 
 @Configuration
 public class VaultConfig implements VaultConfigurer {
