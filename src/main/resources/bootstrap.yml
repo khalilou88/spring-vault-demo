@@ -8,7 +8,8 @@ spring:
       fail-fast: true
 
       # Vault server configuration
-      uri: https://vault.example.com:8200
+#      uri: https://vault.example.com:8200
+      uri: https://localhost:8200
       connection-timeout: 5000
       read-timeout: 15000
 
