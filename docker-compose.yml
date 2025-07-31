@@ -7,7 +7,8 @@ services:
     environment:
       VAULT_DEV_ROOT_TOKEN_ID: myroot
       VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
-      VAULT_ADDR: http://0.0.0.0:8200
+      VAULT_ADDR: https://0.0.0.0:8200
+      VAULT_SKIP_VERIFY: "true"
     cap_add:
       - IPC_LOCK
     volumes:
@@ -28,8 +29,9 @@ services:
       vault:
         condition: service_healthy
     environment:
-      VAULT_ADDR: http://0.0.0.0:8200
+      VAULT_ADDR: https://0.0.0.0:8200
       VAULT_TOKEN: myroot
+      VAULT_SKIP_VERIFY: "true"
     volumes:
       - ./vault/init:/vault/init
     command: >
