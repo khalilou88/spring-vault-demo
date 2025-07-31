@@ -9,20 +9,20 @@ vault-setup:
 # Start Vault services
 vault-start:
 	@echo "🚀 Starting Vault..."
-	@docker-compose up -d vault
+	@docker compose up -d vault
 	@echo "⏳ Waiting for Vault to be ready..."
 	@sleep 5
-	@docker-compose up vault-init
+	@docker compose up vault-init
 
 # Stop Vault services
 vault-stop:
 	@echo "🛑 Stopping Vault..."
-	@docker-compose stop
+	@docker compose stop
 
 # Clean everything (containers, volumes, certificates)
 vault-clean:
 	@echo "🧹 Cleaning up Vault environment..."
-	@docker-compose down -v
+	@docker compose down -v
 	@rm -rf vault/
 	@rm -f src/main/resources/vault-*.jks
 	@echo "✅ Cleanup completed"
@@ -30,15 +30,15 @@ vault-clean:
 # Check Vault status
 vault-status:
 	@echo "📊 Vault Status:"
-	@docker-compose exec vault vault status || echo "Vault is not running"
+	@docker compose exec vault vault status || echo "Vault is not running"
 
 # View Vault logs
 vault-logs:
-	@docker-compose logs -f vault
+	@docker compose logs -f vault
 
 # Open shell in Vault container
 vault-shell:
-	@docker-compose exec vault sh
+	@docker compose exec vault sh
 
 # Test certificate authentication
 vault-test-cert:
@@ -52,12 +52,12 @@ vault-test-cert:
 # List secrets
 vault-list-secrets:
 	@echo "📝 Available secrets:"
-	@docker-compose exec vault sh -c 'export VAULT_TOKEN=myroot && vault kv list secret/'
+	@docker compose exec vault sh -c 'export VAULT_TOKEN=myroot && vault kv list secret/'
 
 # Show application secrets
 vault-show-app-secrets:
 	@echo "🔍 Application secrets:"
-	@docker-compose exec vault sh -c 'export VAULT_TOKEN=myroot && vault kv get secret/spring-vault-demo'
+	@docker compose exec vault sh -c 'export VAULT_TOKEN=myroot && vault kv get secret/spring-vault-demo'
 
 # Add new secret
 vault-add-secret:
@@ -65,12 +65,12 @@ vault-add-secret:
 	read -p "Enter key: " key; \
 	read -s -p "Enter value: " value; \
 	echo ""; \
-	docker-compose exec vault sh -c "export VAULT_TOKEN=myroot && vault kv put $$path $$key='$$value'"
+	docker compose exec vault sh -c "export VAULT_TOKEN=myroot && vault kv put $$path $$key='$$value'"
 
 # Restart with fresh data
 vault-restart:
 	@make vault-stop
-	@docker-compose down -v
+	@docker compose down -v
 	@make vault-start
 
 # Complete development setup
