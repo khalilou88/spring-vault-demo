@@ -78,5 +78,5 @@ dev-setup: vault-setup
 	@echo "🎉 Development environment ready!"
 	@echo "Next steps:"
 	@echo "1. Update application.yml with: uri: https://localhost:8200"
-	@echo "2. Run: mvn spring-boot:run"
+	@echo "2. Run: ./mvnw spring-boot:run"
 	@echo "3. Test: curl http://localhost:8080/spring-vault-demo/api/vault-status"

@@ -126,12 +126,12 @@ make vault-show-app-secrets
 
 ### Development Mode
 ```bash
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
 ### WAR Deployment
 ```bash
-mvn clean package
+./mvnw clean package
 # Deploy target/spring-vault-demo-1.0.0.war to your application server
 ```
 
